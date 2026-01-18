@@ -38,24 +38,21 @@ class Server:
         """
         Silinmələrə qarşı davamlı səhifələmə metodu.
         """
-        # Verilənləri indekslənmiş şəkildə əldə edirik
         data_indexed = self.indexed_dataset()
-        
+
         # İndeksin mövcudluğunu yoxlayırıq
         assert index is not None and index >= 0 and index < len(data_indexed)
 
         data = []
-        current_index = index
-        next_index = None
-        
-        # Lazımi miqdarda məlumatı toplayırıq (silinmiş indeksləri atlayaraq)
         temp_index = index
+
+        # Lazımi miqdarda məlumatı toplayırıq (silinmiş indeksləri atlayaraq)
         while len(data) < page_size and temp_index < len(data_indexed):
             item = data_indexed.get(temp_index)
             if item:
                 data.append(item)
             temp_index += 1
-            
+
         next_index = temp_index if temp_index < len(data_indexed) else None
 
         return {
